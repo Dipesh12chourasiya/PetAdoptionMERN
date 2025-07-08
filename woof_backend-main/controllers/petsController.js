@@ -37,6 +37,8 @@ exports.getByCategory = async (req, res) => {
   }
 };
 
+
+// for createing the pet
 exports.create = async (req, res) => {
   try {
     const { name, age, breed, color, description, imageLabel, category } =
@@ -71,6 +73,8 @@ exports.create = async (req, res) => {
     res.status(400).json(error);
   }
 };
+
+
 
 exports.update = async (req, res) => {
   try {

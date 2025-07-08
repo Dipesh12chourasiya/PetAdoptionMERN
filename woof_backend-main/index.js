@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const morgan = require("morgan");
 const path = require("path");
+const auth = require("./middlwares/authMiddleware");
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
@@ -18,11 +20,18 @@ const adoptionRoutes = require("./routes/adoptionRoutes");
 
 app.use("/public", express.static(path.join(__dirname, "public")));
 
+app.use("/api/auth", authRoutes);
 app.use("/api/pets", petRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/adoption", adoptionRoutes);
 
-const mongodbUri = "mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.0/petAdoption";
+// Example protected route
+app.get("/api/protected", auth, (req, res) => {
+  res.json({ message: "You accessed a protected route!", user: req.user });
+});
+
+const mongodbUri =
+  "mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.0/petAdoption";
 
 mongoose.connect(mongodbUri, {
   useNewUrlParser: true,

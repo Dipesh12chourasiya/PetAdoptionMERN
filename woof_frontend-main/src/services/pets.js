@@ -11,3 +11,17 @@ export const getPetsByCategory = ({ category }) => {
 export const getPetById = ({ id }) => {
   return axiosInstance.get(`/pets/get/${id}`);
 };
+
+
+export const createPet = async (formData) => {
+  const token = localStorage.getItem("token");
+
+  const res = await axios.post("http://localhost:5000/api/pets", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: token,
+    },
+  });
+
+  return res.data;
+};

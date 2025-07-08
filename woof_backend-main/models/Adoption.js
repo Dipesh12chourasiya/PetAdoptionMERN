@@ -32,4 +32,5 @@ const AdoptionSchema = new mongoose.Schema(
   }
 );
 
+
 module.exports = Adoption = mongoose.model("Adoption", AdoptionSchema);
